@@ -16,7 +16,7 @@ const Layout: React.FC = (props) => {
         justifyContent: "center"
       }}>
         <Box sx={{
-          minWidth: 750,
+          width: 750,
           margin: 3
         }}>
           {props.children}
