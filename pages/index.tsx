@@ -1,43 +1,37 @@
-import type { NextPage } from 'next'
-import { Box, Typography } from "@mui/material"
-import WarningIcon from "@mui/icons-material/Warning"
+import type {GetStaticProps, NextPage} from 'next'
 import Layout from "../components/Layout"
-import TaskExecutionLogEntry from '../components/TaskExecutionLogEntry'
+import DailyTask from "../components/DailyTask/DailyTask"
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = () => {
+  const dayStrings = [
+    "2022-01-04",
+    "2022-01-05",
+    "2022-01-06",
+    "2022-01-07",
+    "2022-01-08",
+    "2022-01-09",
+    "2022-01-10",
+    "2022-01-11",
+    "2022-01-12",
+    "2022-01-13",
+    "2022-01-14",
+    "2022-01-15",
+    "2022-01-16",
+    "2022-01-17",
+    "2022-01-18"
+  ]
+  return {
+    props: { dayStrings }
+  }
+}
+
+type Props = {
+  dayStrings: string[]
+}
+
+const Home: NextPage<Props> = (props: Props) => {
   return <Layout>
-    <Box id="status-box">
-      <Box sx={{
-        minHeight: 50,
-        display: "flex",
-        backgroundColor: "lightgray",
-        borderRadius: 5,
-        alignItems: "center",
-        padding: 2
-      }}>
-        <Box sx={{
-          width: 50,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-          <WarningIcon color="warning" sx={{fontSize: 40}}/>
-        </Box>
-        <Box>
-          未設定なデータが10件あります
-        </Box>
-      </Box>  
-    </Box>
-    <Box id="execution-status-2021-12-27" sx={{margin: 2, marginTop: 5}}>
-      <Typography variant="h5" sx={{borderBottom: "1px solid black"}}>
-        2021-12-27 のタスクの実行状況
-      </Typography>
-      <Box id="execution-status-detailed-2021-12-27" mt={2} ml={2}>
-        <TaskExecutionLogEntry taskName="1. スマレジからの商品別売上数の取得" executionStatus="succeeded" />
-        <TaskExecutionLogEntry taskName="2. スマレジからの日報の取得" executionStatus="executing" />
-        <TaskExecutionLogEntry taskName="3. Google Spreadsheet への書き込み" executionStatus="waiting" />
-      </Box>
-    </Box>
+    {props.dayStrings.map(dayString => (<DailyTask key={dayString} dayString={dayString} />))}
   </Layout>
 }
 
