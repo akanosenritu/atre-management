@@ -13,6 +13,7 @@ const SubTask = (props: Props) => {
   const getColor = (status: TaskStatus): string => {
     switch(status) {
       case "done":
+      case "overwritten":
         return theme.palette.success.main
       case "executing":
         return theme.palette.primary.main
@@ -20,7 +21,6 @@ const SubTask = (props: Props) => {
         return theme.palette.error.main
       case "waiting":
       case "skipped":
-      case "overwritten":
           return "darkgray"
       default:
         return "black"       
