@@ -15,10 +15,12 @@ const getSalesDataLogFileName = (dayString: string): string => {
   return `dailyTask_SalesData_${dayString}.json`
 }
 
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
 const DailyTask = (props: Props) => {
   const [year, month, day] = props.dayString.split("-").map(e => parseFloat(e))
-  const {data: salesData} = useSWR(getSalesDataLogFileName(props.dayString))
-  const {data: incomeData} = useSWR(getIncomeDataLogFileName(props.dayString))
+  const {data: salesData} = useSWR("https://atre.blob.core.windows.net/logs/" + getSalesDataLogFileName(props.dayString), fetcher)
+  const {data: incomeData} = useSWR("https://atre.blob.core.windows.net/logs/" + getIncomeDataLogFileName(props.dayString), fetcher)
 
   return <Box sx={{ margin: 2, marginTop: 5 }}>
     <Typography variant="h5" sx={{ borderBottom: "1px solid black" }}>
@@ -33,8 +35,8 @@ const DailyTask = (props: Props) => {
       </Box>
     </Box>
     <Box sx={{display: "flex", justifyContent: "space-between"}}>
-      <DailyTaskSalesData task={salesData?.task} />
-      <DailyTaskIncomeData task={incomeData?.task} />
+      <DailyTaskSalesData task={salesData} />
+      <DailyTaskIncomeData task={incomeData} />
     </Box>
   </Box >
 }
