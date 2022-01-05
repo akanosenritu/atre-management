@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react'
+import {useCallback, useLayoutEffect} from 'react'
 import Quagga from '@ericblade/quagga2'
 import {QuaggaJSResultCallbackFunction} from "@ericblade/quagga2/type-definitions/quagga"
 
@@ -13,8 +13,7 @@ function getMedian(arr: any[]) {
 
 function getMedianOfCodeErrors(decodedCodes: any[]) {
   const errors = decodedCodes.filter(x => x.error !== undefined).map(x => x.error)
-  const medianOfErrors = getMedian(errors)
-  return medianOfErrors
+  return getMedian(errors)
 }
 
 const defaultConstraints = {
@@ -50,7 +49,7 @@ const Scanner = (props: Props) => {
     }
     const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
     // if Quagga is at least 75% certain that it read correctly, then accept the code.
-    if (err < 0.25) {
+    if (err < 0.15) {
       if (result.codeResult.code) onDetected(result.codeResult.code)
     }
   }, [onDetected]);

@@ -28,23 +28,29 @@ export const DisplaySearchResult = (props: Props) => {
   const [fuse, setFuse] = useState<Fuse<Product>|null>(null)
   useEffect(() => {
     const options = {
-      keys: ["商品名", "商品コード"]
+      keys: ["商品名", "商品コード"],
+      shouldSort: false,
+      threshold: 0.4
     }
-    const fuse = new Fuse(props.products, options)
+    const fuse = new Fuse(props.products.sort((a, b) => parseFloat(a["商品ID"]) > parseFloat(b["商品ID"])? 1: -1), options)
     setFuse(fuse)
   }, [props.products])
 
   const displayed: FuseResult<Product>[] = fuse? fuse.search(props.searchBy): []
   const stockDict = convertStockData(props.stockData)
 
-  return <Box>
+  return <Box sx={{
+    "&>div:nth-of-type(odd)": {
+      backgroundColor: "#f2f2f2"
+    }
+  }}>
     {displayed.map(product => {
       return <Box key={product.item["商品ID"]} sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
         <Box>
           <Box><Typography variant={"caption"}>{product.item["商品ID"]} - {product.item["商品コード"]}</Typography></Box>
           <Box>{product.item["商品名"]}</Box>
         </Box>
-        <Box sx={{width: 70}}>
+        <Box sx={{width: 70, textAlign: "center"}}>
           {stockDict[product.item["商品ID"]] || "不明"}
         </Box>
       </Box>

@@ -20,9 +20,6 @@ export const StockPage = () => {
   const onDetected = (result: string) => {
     setSearchBy(result)
   }
-  const onClickClear = () => {
-    setSearchBy("")
-  }
   return <Box>
     <Box sx={{display: "flex", justifyContent: "center"}}>
       <div style={{width: 300, height: 300}}>
