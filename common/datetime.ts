@@ -31,7 +31,7 @@ export const getNowString = (format?: string): string => {
   }
 }
 
-export const getNowStringExcaped = (): string => {
+export const getNowStringEscaped = (): string => {
   const now = getNow()
   return now.toISO().replace(/:/g, "_")
 }
@@ -39,4 +39,16 @@ export const getNowStringExcaped = (): string => {
 export const isValidDayString = (dayString: string): boolean => {
   const dateTime = luxon.DateTime.fromISO(dayString)
   return dateTime.isValid
+}
+
+export const isPastDue = (dayString: string) => {
+  const day = luxon.DateTime.fromISO(dayString, {zone: "Asia/Tokyo"})
+  const today = luxon.DateTime.local()
+  const interval = luxon.Interval.fromDateTimes(day, today)
+  return interval.isValid
+}
+
+export const getTimeString = (dayString: string) => {
+  const day = luxon.DateTime.fromISO(dayString)
+  return day.toFormat("HH:mm:ss")
 }

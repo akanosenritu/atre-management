@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import SubTask from "./SubTask"
 import { Task } from "../../types/types"
+import {getTimeString} from "../../common/datetime"
 
 type Props = {
   task?: Task
@@ -8,8 +9,8 @@ type Props = {
 
 const DailyTaskSalesData = (props: Props) => {
   const { task } = props
-  return <Box sx={{ border: "1px solid black", borderRadius: 5, padding: 1, width: "48%" }}>
-    <Typography variant="body1">商品別販売数</Typography>
+  return <Box sx={{ padding: 1, paddingRight: 3, borderLeft: "3px solid darkgray" }}>
+    <Typography variant="body1"><b>販売数データ</b></Typography>
     {task
       ? <Box sx={{ marginLeft: 3 }}>
         <SubTask name={"データの取得"} status={task.subTasks["downloadSalesData"].status} />
@@ -18,7 +19,13 @@ const DailyTaskSalesData = (props: Props) => {
       </Box>
       : <Box ml={3}>まだ実行されていません</Box>
     }
-
+    {task && task.startedAt && task.endedAt &&
+      <Box sx={{textAlign: "right"}}>
+        <Typography variant={"caption"} sx={{color: "darkgray"}}>
+          実行時刻: {getTimeString(task.startedAt)} - {getTimeString(task.endedAt)}
+        </Typography>
+      </Box>
+    }
   </Box>
 }
 

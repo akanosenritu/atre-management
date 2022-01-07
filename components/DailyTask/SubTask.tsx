@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 
-type TaskStatus = "done" | "executing" | "failed" | "waiting" | "skipped" | "overwritten"
+type TaskStatus = "done" | "executing" | "failed" | "waiting" | "skipped" | "overwritten" | "noData"
 
 type Props = {
   name: string,
@@ -21,7 +21,8 @@ const SubTask = (props: Props) => {
         return theme.palette.error.main
       case "waiting":
       case "skipped":
-          return "darkgray"
+      case "noData":
+        return "darkgray"
       default:
         return "black"       
     }
@@ -40,6 +41,8 @@ const SubTask = (props: Props) => {
         return "スキップ"
       case "overwritten":
         return "上書き"
+      case "noData":
+        return "データ無し"
       default:
         return "(設定無し)"
     }
