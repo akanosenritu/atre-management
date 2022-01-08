@@ -1,6 +1,7 @@
 import type {GetStaticProps, NextPage} from 'next'
 import Layout from "../components/Layout"
 import DailyTask from "../components/DailyTask/DailyTask"
+import {AuthenticationRequired} from "../components/functional/AuthenticationRequired"
 
 export const getStaticProps: GetStaticProps = () => {
   const dayStrings = [
@@ -31,7 +32,9 @@ type Props = {
 
 const Home: NextPage<Props> = (props: Props) => {
   return <Layout>
-    {props.dayStrings.map(dayString => (<DailyTask key={dayString} dayString={dayString} />))}
+    <AuthenticationRequired>
+      {props.dayStrings.map(dayString => (<DailyTask key={dayString} dayString={dayString} />))}
+    </AuthenticationRequired>
   </Layout>
 }
 
