@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { useTheme } from "@mui/material/styles"
+import { getColor } from "./common"
 
 type TaskStatus = "done" | "executing" | "failed" | "waiting" | "skipped" | "overwritten" | "noData"
 
@@ -9,24 +9,6 @@ type Props = {
 }
 
 const SubTask = (props: Props) => {
-  const theme = useTheme()
-  const getColor = (status: TaskStatus): string => {
-    switch(status) {
-      case "done":
-      case "overwritten":
-        return theme.palette.success.main
-      case "executing":
-        return theme.palette.primary.main
-      case "failed":
-        return theme.palette.error.main
-      case "waiting":
-      case "skipped":
-      case "noData":
-        return "darkgray"
-      default:
-        return "black"       
-    }
-  }
   const getStatusDisplayName = (status: TaskStatus): string => {
     switch (status) {
       case "done":
