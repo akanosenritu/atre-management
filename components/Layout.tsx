@@ -9,16 +9,7 @@ const Layout: React.FC = (props) => {
       <Toolbar variant="dense" sx={{display: "flex", justifyContent: "space-between"}}>
         <Box sx={{display: "flex"}}>
           <Typography variant="h6" mx={1}>
-            <Link href={"/"}>ホーム</Link>
-          </Typography>
-          <Typography variant="h6" mx={1}>
-            <Link href={"/demo"}>デモ</Link>
-          </Typography>
-          <Typography variant="h6" mx={1}>
             <Link href={"/stock"}>在庫</Link>
-          </Typography>
-          <Typography variant="h6" mx={1}>
-            <Link href={"/settings"}>設定</Link>
           </Typography>
         </Box>
         <Box sx={{display: "flex"}}>
