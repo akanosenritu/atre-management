@@ -1,4 +1,4 @@
-import {Box, Button, TextField} from "@mui/material"
+import {Box, Button, TextField, Typography} from "@mui/material"
 import {useRef, useState, ChangeEvent} from "react"
 import Scanner from "../Stock/Scanner"
 import useSWR from "swr"
@@ -45,7 +45,7 @@ export const StockPage = () => {
     </Box>
     <hr />
     <Box sx={{
-      m: 3,
+      m: 2,
       '& .MuiTextField-root': { mt: 1},
     }}>
       <TextField
@@ -60,9 +60,12 @@ export const StockPage = () => {
     <Box sx={{
       display: "flex",
       justifyContent: "space-around",
+      m: 1,
     }}>
       <Button color="primary" variant="outlined">在庫数を更新</Button>
     </Box>
+    {!productsData && <Box sx={{display: "flex", justifyContent: "center"}}><Typography variant={"body1"}>商品データを読み込み中...</Typography></Box>}
+    {!stockData && <Box sx={{display: "flex", justifyContent: "center"}}><Typography variant={"body1"}>在庫データを読み込み中...</Typography></Box>}
     {productsData && stockData && <DisplaySearchResult searchBy={searchBy} products={productsData.data} stockData={stockData.result} />}
   </Box>
 }
