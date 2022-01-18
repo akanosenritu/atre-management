@@ -7,9 +7,15 @@ const Layout: React.FC = (props) => {
   return <>
     <AppBar position="static">
       <Toolbar variant="dense" sx={{display: "flex", justifyContent: "space-between"}}>
-        <Box sx={{display: "flex"}}>
-          <Typography variant="h6" mx={1}>
+        <Box sx={{display: "flex", "&>.MuiTypography-root": {mx: 1}}}>
+          <Typography variant="h6">
             <Link href={"/stock"}>在庫</Link>
+          </Typography>
+          <Typography variant="h6">
+            <Link href={"/csv"}>販売数</Link>
+          </Typography>
+          <Typography variant="h6">
+            <Link href={"/settings"}>設定</Link>
           </Typography>
         </Box>
         <Box sx={{display: "flex"}}>
