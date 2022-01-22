@@ -63,6 +63,7 @@ const Page: NextPage = () => {
     <Typography variant={"h6"} sx={{borderBottom: "1px solid darkgray"}}>自動ダウンロードされたデータを使用する</Typography>
     <Typography variant={"body2"} sx={{paddingLeft: 3, paddingTop: 1}}>
       スマレジ上から自動的にダウンロードされたデータを使用します。データは21時4分に自動的にダウンロードされ、クラウド上に保存されています。
+      クラウド上にデータが作成される21時4分から23時59分まで利用できますが、それ以外の時間には使用できません。
     </Typography>
     <div style={{display: "flex", margin: 5, justifyContent: "center"}}>
       <div>
