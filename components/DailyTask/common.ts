@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material/styles"
 
 type TaskStatus = "done" | "executing" | "failed" | "waiting" | "skipped" | "overwritten" | "noData"
 
-export const getColor = (status: TaskStatus): string => {
+export const useStatusColor = (status: TaskStatus): string => {
   const theme = useTheme()
   switch (status) {
     case "done":

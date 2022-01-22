@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material"
 import SubTask from "./SubTask"
 import {Task} from "../../types/types"
 import {getTimeString} from "../../common/datetime"
-import { getColor } from "./common"
+import { useStatusColor } from "./common"
 
 type Props = {
   task?: Task,
@@ -10,7 +10,8 @@ type Props = {
 
 const DailyTaskIncomeData = (props: Props) => {
   const { task } = props
-  return <Box sx={{ padding: 1, paddingRight: 3, borderLeft: `3px solid ${getColor(task ? task.status : "waiting")}` }}>
+  const color = useStatusColor(task ? task.status : "waiting")
+  return <Box sx={{ padding: 1, paddingRight: 3, borderLeft: `3px solid ${color}` }}>
     <Typography variant="body1"><b>売上情報データ</b></Typography>
     {task
       ? <Box sx={{ marginLeft: 3 }}>

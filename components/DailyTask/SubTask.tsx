@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { getColor } from "./common"
+import { useStatusColor } from "./common"
 
 type TaskStatus = "done" | "executing" | "failed" | "waiting" | "skipped" | "overwritten" | "noData"
 
@@ -29,9 +29,10 @@ const SubTask = (props: Props) => {
         return "(設定無し)"
     }
   }
+  const color = useStatusColor(props.status)
   return <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
     <Box>{props.name}</Box>
-    <Box><Typography variant="body2" sx={{color: getColor(props.status)}}>{getStatusDisplayName(props.status)}</Typography></Box>
+    <Box><Typography variant="body2" sx={{color}}>{getStatusDisplayName(props.status)}</Typography></Box>
   </Box>
 }
 
