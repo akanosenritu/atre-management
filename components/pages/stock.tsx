@@ -1,8 +1,9 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useRef, useState, ChangeEvent} from "react"
+import { useDebounce } from "use-debounce"
 import Scanner from "../Stock/Scanner"
 import useSWR from "swr"
-import {DisplaySearchResult} from "../Stock/DisplaySearchResult"
+import {DisplaySearchResultByItemName} from "../Stock/DisplaySearchResult"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -13,12 +14,17 @@ export const StockPage = () => {
   const scannerRef = useRef(null)
   const [scanning, setScanning] = useState(false)
 
-  const [searchBy, setSearchBy] = useState<string>("")
+  const [inputText, setInputText] = useState("")
+  const [isJanCode, setIsJanCode] = useState(false)
+  const [searchBy] = useDebounce(inputText, 1000)
+
   const handleSearchByChange = (event: ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => {
-    setSearchBy(event.target.value)
+    setInputText(event.target.value)
+    setIsJanCode(/[0-9]+/.test(event.target.value))
   }
   const onDetected = (result: string) => {
-    setSearchBy(result)
+    setInputText(result)
+    setIsJanCode(true)
   }
   return <Box>
     <Box sx={{display: "flex", justifyContent: "center"}}>
@@ -50,7 +56,7 @@ export const StockPage = () => {
     }}>
       <TextField
         fullWidth={true}
-        value={searchBy}
+        value={inputText}
         onChange={handleSearchByChange}
         InputLabelProps={{
           shrink: true
@@ -66,6 +72,11 @@ export const StockPage = () => {
     </Box>
     {!productsData && <Box sx={{display: "flex", justifyContent: "center"}}><Typography variant={"body1"}>商品データを読み込み中...</Typography></Box>}
     {!stockData && <Box sx={{display: "flex", justifyContent: "center"}}><Typography variant={"body1"}>在庫データを読み込み中...</Typography></Box>}
-    {productsData && stockData && <DisplaySearchResult searchBy={searchBy} products={productsData.data} stockData={stockData.result} />}
+    {productsData && stockData && inputText && <DisplaySearchResultByItemName
+      searchBy={searchBy}
+      isJanCode={isJanCode}
+      products={productsData.data}
+      stockData={stockData.result}
+    />}
   </Box>
 }
